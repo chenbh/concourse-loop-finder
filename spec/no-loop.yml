@@ -1,0 +1,6 @@
+jobs:
+- name: job
+- name: other-job
+  plan:
+  - get: resource
+    passed: job
