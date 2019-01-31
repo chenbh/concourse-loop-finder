@@ -5,9 +5,27 @@ class Finder
 
   def find(path)
     jobs = @reader.read_jobs(path)
-    jobs[0].passed.include? jobs[0].name
+    first_loop = jobs
+                 .map { |j| in_loop?(j, []) }
+                 .reject(&:empty?)
+                 .first || []
+    first_loop.reverse
   end
 
-  def in_loop?(job)
+  def in_loop?(job, visited)
+    return [] if job.passed.empty?
+    return [job.name] if visited.include? job.name
+
+    visited.push job.name
+    looped_jobs = job
+                  .passed
+                  .map { |p| in_loop?(p, visited) }
+                  .reject(&:empty?)
+                  .first
+    if looped_jobs.nil?
+      []
+    else
+      looped_jobs.push job.name
+    end
   end
 end

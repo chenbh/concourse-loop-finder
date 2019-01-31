@@ -1,0 +1,19 @@
+jobs:
+- name: pre-job
+- name: job
+  plan:
+  - get: foo
+    passed: [job2, pre-job]
+- name: job2
+  plan:
+  - get: resource
+    passed: [job3]
+- name: job3
+  plan:
+    - get: bar
+      passed: [job]
+- name: job4
+- name: job5
+  plan:
+  - get:
+    passed: [job5]

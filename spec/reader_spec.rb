@@ -6,7 +6,7 @@ describe Reader do
   end
   describe 'reading loop.yml' do
     let :result do
-      subject.read_jobs('spec/loop.yml')
+      subject.read_jobs('spec/fixtures/loop.yml')
     end
 
     it 'reads the correct number of jobs' do
@@ -29,7 +29,7 @@ describe Reader do
   end
   describe 'reading no-loop.yml' do
     let :result do
-      subject.read_jobs('spec/no-loop.yml')
+      subject.read_jobs('spec/fixtures/no-loop.yml')
     end
 
     it 'reads the correct number of jobs' do

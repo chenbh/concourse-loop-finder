@@ -1,11 +1,14 @@
 require 'yaml'
-require 'job'
 
 class Reader
   def read_jobs(path)
-    obj = YAML.load_file path
-    flat_jobs = obj['jobs']
-                 .map { |y| flat_job(y) }
+    begin
+      obj = YAML.load_file path
+    rescue
+      puts "couldn't read #{path}"
+      exit 1
+    end
+    flat_jobs = obj['jobs'].map { |y| flat_job(y) }
     jobs = flat_jobs .map { |name, _| Job.new name }
     jobs.each do |j|
       _, passed = flat_jobs.find { |n, _| n == j.name }
@@ -19,5 +22,13 @@ class Reader
     plan = yaml['plan'] || []
     passed = plan.flat_map { |s| s['passed'] }.compact
     [name, passed]
+  end
+end
+
+class Job
+  attr_accessor :name, :passed
+
+  def initialize(name)
+    @name = name
   end
 end
