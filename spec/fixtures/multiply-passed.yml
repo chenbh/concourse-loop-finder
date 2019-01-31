@@ -1,0 +1,9 @@
+jobs:
+- name: first
+- name: middle
+  plan:
+  - passed: [first]
+- name: last
+  plan:
+  - passed: [middle]
+  - passed: [middle]

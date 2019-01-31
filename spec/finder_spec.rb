@@ -16,6 +16,11 @@ describe Finder do
       .to eq []
   end
 
+  it 'identifies a no-loop with multiple passed' do
+    expect(subject.find('spec/fixtures/multiply-passed.yml'))
+      .to eq []
+  end
+
   it 'identifies a longer loop' do
     expect(subject.find('spec/fixtures/long-loop.yml'))
       .to eq %w[job job2 job]

@@ -16,10 +16,9 @@ class Finder
     return [] if job.passed.empty?
     return [job.name] if visited.include? job.name
 
-    visited.push job.name
     looped_jobs = job
                   .passed
-                  .map { |p| in_loop?(p, visited) }
+                  .map { |p| in_loop?(p, visited + [job.name]) }
                   .reject(&:empty?)
                   .first
     if looped_jobs.nil?

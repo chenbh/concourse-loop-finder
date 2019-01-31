@@ -1,9 +1,7 @@
 jobs:
 - name: job
   plan:
-  - get: foo
-    passed: job2
+  - passed: job2
 - name: job2
   plan:
-  - get: resource
-    passed: [job]
+  - passed: [job]

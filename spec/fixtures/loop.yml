@@ -1,5 +1,4 @@
 jobs:
 - name: job
   plan:
-  - get: resource
-    passed: [job]
+  - passed: [job]
